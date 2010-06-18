@@ -1,14 +1,17 @@
 module Integrity
   class Repository
-    def initialize(id, uri, branch, commit)
-      @id     = id
-      @uri    = uri
-      @branch = branch
-      @commit = commit == "HEAD" ? head : commit
+    def initialize(id, permalink, uri, branch, commit)
+      @id        = id
+      @permalink = permalink
+      @uri       = uri
+      @branch    = branch
+      @commit    = commit == "HEAD" ? head : commit
     end
 
     def checkout
-      run "git clone #{@uri} #{directory}", false unless cloned?
+      unless cloned?
+        cached? ? clone_cache : clone
+      end
       run "git fetch origin"
       run "git checkout origin/#{@branch}"
       run "git reset --hard #{@commit}"
@@ -31,7 +34,24 @@ module Integrity
     def directory
       @directory ||= Integrity.directory.join(@id.to_s)
     end
-
+    
+    def cached?
+      cache_directory.directory?
+    end
+    
+    def clone_cache
+      run "cp -R #{cache_directory} #{directory}", false
+    end
+    
+    def clone
+      run "git clone #{@uri} #{cache_directory}", false
+      clone_cache
+    end
+    
+    def cache_directory
+      Integrity.directory.join("cache", @permalink)
+    end
+    
     private
       def cloned?
         directory.join(".git").directory?
