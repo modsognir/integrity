@@ -1,0 +1,25 @@
+development: &main_settings
+  app_name: questions
+  stage: dev
+  exception_recipients: hughe@amc.org.au, hugh@artpop.com.au, timr@amc.org.au, tim@openmonkey.com
+  sender_address: exceptions@amc.org.au
+  authsmtp_username: replace-me
+  authsmtp_password: replace-me
+  mcq_images_share_user: AMC\sa-account
+  mcq_images_share_pass: replace-me
+  mcq_images_share_path: //dell1yjwg1s/Common
+  mcq_images_share_dom: AMC
+  mcq_images_root: images
+  log_server: ''
+  sphinx_delay: '1.5'
+audit_development:
+  <<: *main_settings
+test:
+  host: localhost
+  <<: *main_settings
+production:
+  <<: *main_settings
+legacy_development:
+  <<: *main_settings
+legacy_test:
+  <<: *main_settings

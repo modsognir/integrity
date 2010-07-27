@@ -1,0 +1,40 @@
+base: &base
+  adapter: mysql
+  username: root
+  password: root
+
+
+development: &development
+  database: questions_development
+  <<: *base
+
+test: &TEST
+  database: questions_test
+  <<: *base
+
+production:
+  <<: *development
+
+
+legacy_production: &LEGACY_PRODUCTION
+  adapter: sqlserver
+  mode: odbc
+  dsn: QBANK-STAGING
+  autocommit: true
+  host: localhost
+  username: AMC\MCQBank_rails
+  password: X$pR2!?dE-1q
+
+legacy_development:
+  adapter: sqlite3
+  database: db/legacy_development.sqlite3
+  pool: 5
+  timeout: 5000
+
+legacy_test: &TEST
+  adapter: sqlite3
+  database: db/legacy_test.sqlite3
+  pool: 5
+  timeout: 5000
+cucumber:
+  <<: *TEST

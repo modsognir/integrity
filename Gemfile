@@ -34,7 +34,7 @@ gem "sinatra-authorization", "1.0.0"
 
 # = Dependencies for the :dj builder
 # gem "activerecord"
-# gem "sqlite3-ruby"
+gem "sqlite3-ruby", '1.2.5'
 # gem "delayed_job", :git => "git://github.com/tobi/delayed_job.git"
 # = Dependency for the :resque builder
 # gem "resque"

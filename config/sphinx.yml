@@ -1,0 +1,11 @@
+development:
+  port: 3312
+  charset_table: "0..9, A..Z->a..z, _, a..z, -"
+  morphology: stem_en
+test:
+  port: 3313
+  morphology: stem_en
+  bin_path: '/usr/local/bin'
+production:
+  morphology: stem_en
+  bin_path: '/usr/local/bin'
